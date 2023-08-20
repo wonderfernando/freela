@@ -19,7 +19,7 @@ padding: 0;
 .logo-left {
 /*position: relative;
 top: -3px;*/
-max-width: 100px;
+ 
 height: 100px;
 width: 100px;
 margin-left: 1rem;
@@ -663,15 +663,16 @@ background-color: #f0f0f0;
         font-size: 12pt;
     }
     .logo-left{
-        width: 115px;
+       
         margin-left: 0rem;
-        height: 115px;
+        height: 95px;
+        width: 95px;
         margin-right: 1rem;
         margin-left: .875rem;
     }
     .logo-right{
-        width: 115px;
-        height: 115px;
+        width: 120px;
+        height: 120px;
     }
 }
 
