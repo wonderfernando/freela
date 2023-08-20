@@ -23,9 +23,7 @@ top: -3px;*/
 height: 100px;
 width: 100px;
 margin-left: 1rem;
-background-size: contain;
-background-position: center center;
-background-repeat: no-repeat;
+ 
 /*margin-right: 100px;*/
 
 /* Substitua o caminho da imagem abaixo pelo caminho da sua primeira logo */
@@ -656,7 +654,6 @@ background-color: #f0f0f0;
    }
  
   }
-
 @media (max-width: 820px) {
     
     .title{
@@ -695,3 +692,15 @@ background-color: #f0f0f0;
         width: 100%;
     }
 }
+
+@media (max-width: 500px) {
+    .logo-left{
+        height: 70px;
+        width: 70px;
+       
+    }
+    .logo-right{
+        width: 120px;
+        height: 120px;
+    }
+  }
