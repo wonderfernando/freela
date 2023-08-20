@@ -695,12 +695,12 @@ background-color: #f0f0f0;
 
 @media (max-width: 500px) {
     .logo-left{
-        height: 70px;
-        width: 70px;
+        height: 60px;
+        width: 60px;
        
     }
     .logo-right{
-        width: 120px;
-        height: 120px;
+        width: 110px;
+        height: 110px;
     }
   }
