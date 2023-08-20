@@ -21,7 +21,7 @@ padding: 0;
 top: -3px;*/
 max-width: 100px;
 height: 100px;
-margin-right: 1rem;
+
 background-size: contain;
 background-position: center center;
 background-repeat: no-repeat;
@@ -664,6 +664,8 @@ background-color: #f0f0f0;
     .logo-left{
         width: 100px;
         height: 100px;
+        margin-right: 1rem;
+        margin-left: .875rem;
     }
 }
 
