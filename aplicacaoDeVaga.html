@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, iniital-scale=1">
+    <link rel="stylesheet" href="processoSeletivo2.css">
+</head>
+<body>
+    <header class="header">
+        <div class="logo-left"></div>
+        <h1 class="title">Aplicação para participação de Processo Seletivo</h1>
+            <img src="./img/logo-right.jpeg" alt="Logo Direita" class="logo-right">
+    </header>
+<style>
+
+
+
+
+  /* Estilo para a div que envolve o input e as sugestões */
+  .suggestions-container {
+    position: relative;
+  }
+
+  /* Estilo para as sugestões */
+  .suggestions {
+    display: none;
+    position: absolute;
+    max-height: 150px;
+    overflow-y: auto;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    z-index: 1;
+    width: 100%;
+  }
+
+  /* Estilo para as sugestões individuais */
+  .suggestions .suggestion {
+    padding: 8px 12px;
+    cursor: pointer;
+  }
+</style>
+
+<div class="inicio">
+  <div class="suggestions-container">
+    <label for="vaga"></label>
+    <input type="text" id="vaga" placeholder="Aplicação para a vaga" required>
+    <span class="asterisk">*</span>
+    <div id="suggestions" class="suggestions"></div>
+  </div>
+</div>
+
+<script>
+ // Função para buscar as opções do banco de dados usando PHP
+  async function fetchOptionsFromDatabase() {
+    try {
+      const response = await fetch('buscar_opcoes.php');
+      const data = await response.json();
+      return data;
+    } catch (error) {
+      console.error('Erro ao buscar opções do banco de dados:', error);
+      return [];
+    }
+  }
+
+  // Função para exibir as sugestões no campo de vaga
+  async function showSuggestions() {
+    const inputVaga = document.getElementById('vaga');
+    const suggestionsDiv = document.getElementById('suggestions');
+
+    // Buscar as opções do banco de dados
+    const opcoes = await fetchOptionsFromDatabase();
+
+    // Limpar as sugestões existentes
+    suggestionsDiv.innerHTML = '';
+
+    // Exibir as novas sugestões
+    opcoes.forEach(opcao => {
+      const suggestion = document.createElement('div');
+      suggestion.textContent = opcao;
+      suggestion.classList.add('suggestion');
+      suggestionsDiv.appendChild(suggestion);
+    });
+
+    // Mostrar a lista de sugestões
+    suggestionsDiv.style.display = 'block';
+  }
+
+  // Event listener para mostrar as sugestões ao clicar no campo de vaga
+  document.getElementById('vaga').addEventListener('click', showSuggestions);
+
+  // Event listener para preencher o campo de vaga com a sugestão clicada
+  document.getElementById('suggestions').addEventListener('click', function (event) {
+    const target = event.target;
+    if (target.matches('.suggestion')) {
+      const vagaInput = document.getElementById('vaga');
+      vagaInput.value = target.textContent;
+      this.style.display = 'none';
+    }
+  });
+
+</script>
+
+
+
+
+
+
+
+
+
+    <div class="form-title" style="background-color: #031f3f;">Dados Pessoais</div>
+    <form id="form-processo-seletivo" action="processar_aplicaçãoDeVaga.php" method="post">
+        <div class="my-container">
+            <div class="linha">
+                <div class="coluna1">
+                    <label for="nome-candidato"></label>
+                    <input type="text" id="nome-candidato" name="nome-candidato" placeholder="Nome do candidato" required>
+                </div>
+                <div class="coluna2">
+                    <div>
+                        <label for="data-nascimento"></label>
+                        <input type="email" id="data-nascimento" name="data-nascimento" placeholder="Data de Nascimento" required>    
+                    </div>
+                    <div class="">
+                        <label for="nro-celular"></label>
+                        <input type="text" id="nro-celular" name="nro-celular" placeholder="Nro celular com DDD" required>
+                    </div>
+                </div>
+                <div class="coluna3">
+                    <label for="email"></label>
+                    <input type="text" id="email" name="email" placeholder="E-mail" required>
+                </div>
+            </div>
+            <div class="linha">
+                <div class="coluna4">
+                    <label for="endereco"></label>
+                    <input type="text" id="endereco" name="endereco" placeholder="Endereço" required>
+                 </div>
+                 <div class="coluna5">
+                    <div>
+                        <label for="bairro"></label>
+                        <input type="text" id="bairro" name="bairro" placeholder="Bairro" required>
+                    </div>
+                    <div>
+                        <label for="cidade"></label>
+                        <input type="text" id="cidade" name="cidade" placeholder="Cidade" required>
+                    </div>
+                </div>
+                <div class="coluna6">
+                    <div>
+                        <label for="uf"></label>
+                        <div class="custom-select">
+                            <input type="text" id="uf-text" name="uf-text" placeholder="UF" readonly onclick="toggleOptions()" style="width: 60px;">
+                            <ul class="select-options" id="uf-options">
+                                <li data-value="">Selecione um estado</li>
+                                <li data-value="AC">Acre</li>
+                                <li data-value="AL">Alagoas</li>
+                                <li data-value="AP">Amapá</li>
+                                <li data-value="AM">Amazonas</li>
+                                <li data-value="BA">Bahia</li>
+                                <li data-value="CE">Ceará</li>
+                                <li data-value="DF">Distrito Federal</li>
+                                <li data-value="ES">Espírito Santo</li>
+                                <li data-value="GO">Goiás</li>
+                                <li data-value="MA">Maranhão</li>
+                                <li data-value="MT">Mato Grosso</li>
+                                <li data-value="MS">Mato Grosso do Sul</li>
+                                <li data-value="MG">Minas Gerais</li>
+                                <li data-value="PA">Pará</li>
+                                <li data-value="PB">Paraíba</li>
+                                <li data-value="PR">Paraná</li>
+                                <li data-value="PE">Pernambuco</li>
+                                <li data-value="PI">Piauí</li>
+                                <li data-value="RJ">Rio de Janeiro</li>
+                                <li data-value="RN">Rio Grande do Norte</li>
+                                <li data-value="RS">Rio Grande do Sul</li>
+                                <li data-value="RO">Rondônia</li>
+                                <li data-value="RR">Roraima</li>
+                                <li data-value="SC">Santa Catarina</li>
+                                <li data-value="SP">São Paulo</li>
+                                <li data-value="SE">Sergipe</li>
+                                <li data-value="TO">Tocantins</li>
+                            </ul>
+                        </div>
+                        <input type="hidden" id="uf" name="uf">
+                    </div>
+                    <div>
+                        <label for="cep"></label>
+                        <input type="text" id="cep" name="cep" placeholder="CEP" required>
+                    </div>
+                </div>
+            </div>
+            <div class="linha2">
+                <div class="coluna7">
+                    <div>
+                        <label for="estado-civil"></label>
+                        <div class="custom-select">
+                            <input type="text" id="estadoCivil-text" name="estadoCivil-text" placeholder="Estado civil" readonly onclick="toggleOptions('estadoCivil-options')" ">
+                            <ul class="select-options" id="estadoCivil-options">
+                                <li data-value="">Selecione um estado civil</li>
+                                <li data-value="Solteiro(a)">Solteiro(a)</li>
+                                <li data-value="Casado(a)">Casado(a)</li>
+                                <!-- Restante das opções de estado civil -->
+                            </ul>
+                        </div>
+                        <input type="hidden" id="estadoCivil" name="estadoCivil">
+                    </div>
+                    <div>
+                        <label for="rg"></label>
+                        <input type="text" id="rg" name="rg" placeholder="R.G." required>
+                    </div>
+                </div>
+                <div class="coluna8">
+                    <div>
+                        <label for="data-emissao"></label>
+                        <input type="text" id="data-emissao" name="data-emissao" placeholder="Data Emissão" required>
+                    </div>
+                    <div>
+                        <label for="orgao-emissor"></label>
+                        <input type="text" id="orgao-emissor" name="orgao-emissor" placeholder="Órgão emissor" required>
+                    </div>
+                    <div>
+                        <label for="cpf"></label>
+                        <input type="text" id="cpf" name="cpf" placeholder="CPF" required>
+                    </div>
+                </div>
+                <div class="coluna9">
+                    <div></div>
+                    <div>
+                        <label for="naturalidade"></label>
+                        <input type="text" id="naturalidade" name="naturalidade" placeholder="Naturalidade" required>
+                    </div>
+                </div>
+            </div>
+            <div class="linha">
+                <div class="coluna10">
+                    <label for="nome-pai"></label>
+                    <input type="text" id="nome-pai" name="nome-pai" placeholder="Nome do pai" required> 
+                </div>
+                <div class="coluna11">
+                    <label for="nome-mae"></label>
+                    <input type="text" id="nome-mae" name="nome-mae" placeholder="Nome da mãe" required>
+                </div>
+            </div>   
+            <div class="linha">
+                <div class="coluna12">
+                    <span>Possui empresa?</span>
+                    <label for="empresa-sim">S</label>
+                    <input type="radio" id="empresa-sim" name="possui-empresa" value="S">
+                    <label for="empresa-nao">N</label>
+                    <input type="radio" id="empresa-nao" name="possui-empresa" value="N">
+                </div>
+                <div class="coluna13" id="campo-cnpj" style="display: none;">
+                    <label for="cnpj"></label>
+                    <input type="text" id="cnpj" name="cnpj" placeholder="CNPJ">
+                </div>
+                
+            </div>
+        </div>
+
+      
+    <div class="form-title" style="background-color: #031f3f;">Referências profissionais (pelo menos uma) </div>
+    <div class="my-container-2">
+        <div class="linha">
+            <div class="coluna14">
+                <label for="nome-candidato"></label>
+                <input type="text" id="nome-candidato-1" name="nome-candidato" placeholder="Nome" required>
+            </div>
+            <div class="coluna15">
+                <div>
+                    <input type="text" id="data-nascimento-1" name="data-nascimento" placeholder="Data de Nascimento" required>
+                </div>
+                <div>
+                    <label for="nro-celular"></label>
+                    <input type="text" id="nro-celular-1" name="nro-celular" placeholder="Nro celular com DDD" required>
+                </div>
+            </div>
+            <div class="coluna16">
+                <label for="email"></label>
+                <input type="text" id="email" name="email" placeholder="E-mail" required>
+            </div>
+        </div>
+        <div class="linha">
+            <div class="coluna14">
+                <label for="nome-candidato"></label>
+                <input type="text" id="nome-candidato-1" name="nome-candidato" placeholder="Nome" required>
+            </div>
+            <div class="coluna15">
+                <div>
+                    <input type="text" id="data-nascimento-1" name="data-nascimento" placeholder="Data de Nascimento" required>
+                </div>
+                <div>
+                    <label for="nro-celular"></label>
+                    <input type="text" id="nro-celular-1" name="nro-celular" placeholder="Nro celular com DDD" required>
+                </div>
+            </div>
+            <div class="coluna16">
+                <label for="email"></label>
+                <input type="text" id="email" name="email" placeholder="E-mail" required>
+            </div>
+        </div>
+        <div class="linha">
+            <div class="coluna14">
+                <label for="nome-candidato"></label>
+                <input type="text" id="nome-candidato-1" name="nome-candidato" placeholder="Nome" required>
+            </div>
+            <div class="coluna15">
+                <div>
+                    <input type="text" id="data-nascimento-1" name="data-nascimento" placeholder="Data de Nascimento" required>
+                </div>
+                <div>
+                    <label for="nro-celular"></label>
+                    <input type="text" id="nro-celular-1" name="nro-celular" placeholder="Nro celular com DDD" required>
+                </div>
+            </div>
+            <div class="coluna16">
+                <label for="email"></label>
+                <input type="text" id="email" name="email" placeholder="E-mail" required>
+            </div>
+        </div>
+ 
+
+
+    </div>
+    <div class="autorizacao">
+        <input type="checkbox" id="autorizacao-checkbox">
+        <label for="autorizacao-checkbox"></label>
+        <span class="autorizacao-texto">Autorizo a utilização de meus dados pessoais informados neste formulário com finalidade exclusiva para <br> participação do processo seletivo.</span>
+    </div>
+
+  <div id="submit-button" class="row" style="display: flex; justify-content: center;">
+            <button class="submit" type="submit" style=" background-color: #E8691A; color: white; padding: 20px 120px; font-size: 16px; border: none; cursor: pointer ; margin-top: 50px;" >Enviar</button>
+        </div>
+    
+
+    <script src="processoSeletivo.js"
+    
+    ></script>
+</body>
+</html>
