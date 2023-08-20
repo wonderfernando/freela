@@ -21,7 +21,7 @@ padding: 0;
 top: -3px;*/
 width: 85px;
 height: 85px;
-background-size: cover;
+background-size: contain;
 background-repeat: no-repeat;
 /*margin-right: 100px;*/
 
@@ -235,6 +235,14 @@ left:160px;
     display: grid;
     align-items: center;
     grid-template-columns:  1fr 35vw 20vw;
+    gap: 1.8rem;
+}
+.linha3{
+    width: 100%;
+    margin-bottom: 1rem;
+    display: grid;
+    align-items: center;
+    grid-template-columns:  30vw 20vw;
     gap: 1.8rem;
 }
 .coluna8{ 
@@ -619,8 +627,12 @@ background-color: #f0f0f0;
 
 
 @media (max-width: 820px)  {
-    .linha,.linha2{
+    .linha,.linha2,.linha3{
         grid-template-columns: 1fr;
+   
+    }
+    .linha input,.linha2 input, .linha3 input{
+        font-size: 80%;
     }
     .autorizacao-texto{
         font-size: 93.75%;
